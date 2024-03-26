@@ -2,8 +2,12 @@ server:
   port: 7777
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
   datasource:
-    url:  jdbc:mysql://localhost:3306/real-time-social-chat?characterEncoding=utf-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/real-time-social-chat?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: 20010512
     type: com.alibaba.druid.pool.DruidDataSource

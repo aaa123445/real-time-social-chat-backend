@@ -5,7 +5,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import org.apache.tomcat.util.digester.DocumentProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -43,7 +42,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
-        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm");
         fastJsonConfig.setCharset(StandardCharsets.UTF_8);
         SerializeConfig.globalInstance.put(Long.class, ToStringSerializer.instance);
 
