@@ -25,6 +25,11 @@ public class WebSocketController {
         return chatService.getChatList(pageNum, pageSize, userId);
     }
 
+    @GetMapping("getMessageList/{pageNum}/{pageSize}/{chatId}")
+    public ResponseResult getMessageList(@PathVariable Long pageNum, @PathVariable Long pageSize, @PathVariable Long chatId) {
+        return messageService.getMessageList(pageNum, pageSize, chatId);
+    }
+
     @PostMapping("addChat")
     public ResponseResult addChat(@RequestBody AddChatVo addChatVo) {
         return chatService.addChat(addChatVo);

@@ -24,6 +24,8 @@ public class Chat implements Serializable {
     private Long user2Id;
     @TableField("create_time")
     private Date createTime;
+    @TableField("update_time")
+    private Date updateTime;
     @TableField("del_flag")
     private Integer delFlag;
 }
