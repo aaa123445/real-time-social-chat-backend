@@ -42,10 +42,5 @@ public class WebSocketController {
         return text;
     }
 
-    @GetMapping("/sendOneWebSocket/{userId}")
-    public String sendOneWebSocket(@PathVariable("userId") String userId) {
-        String text = userId + " 你好！ 这是websocket单人发送！";
-        webSocket.sendOneMessage(userId, text);
-        return text;
-    }
+
 }

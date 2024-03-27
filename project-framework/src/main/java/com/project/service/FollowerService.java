@@ -11,4 +11,6 @@ public interface FollowerService extends IService<Follower> {
     ResponseResult addFollower(AddFollowerVo addFollowerVo);
 
     ResponseResult delFollower(AddFollowerVo addFollowerVo);
+
+    ResponseResult getList(Long id);
 }

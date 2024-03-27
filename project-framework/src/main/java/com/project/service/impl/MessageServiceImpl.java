@@ -27,7 +27,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     @Override
     public ResponseResult getMessageList(Long pageNum, Long pageSize, Long chatId) {
         LambdaQueryWrapper<Message> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Message::getChatId, chatId).orderByAsc(Message::getCreateTime);
+        queryWrapper.eq(Message::getChatId, chatId).orderByDesc(Message::getCreateTime);
         Page<Message> page = page(new Page<>(pageNum, pageSize), queryWrapper);
         List<MessageListVo> messageListVos = getMessageListVo(page.getRecords());
         return ResponseResult.okResult(new PageVo(pageNum, pageSize, page.getTotal(), messageListVos));
@@ -40,7 +40,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
             //发送者信息查询
             User sendUser = userService.getById(record.getSendUserId());
             messageListVo.setSendUserAvatar(sendUser.getAvatar());
-            messageListVo.setSendUserAvatar(sendUser.getNickName());
+            messageListVo.setSendUserNickName(sendUser.getNickName());
 
             //接收者信息查询
             User receiverUser = userService.getById(record.getReceiverUserId());

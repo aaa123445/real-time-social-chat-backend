@@ -45,6 +45,7 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat> implements Ch
             return ResponseResult.okResult();
         } else {
             chat.setCreateTime(new Date());
+            chat.setUpdateTime(new Date());
             if (save(chat)) {
                 return ResponseResult.okResult();
             } else {
@@ -89,6 +90,7 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat> implements Ch
             List<Message> list = messageService.list(queryWrapper);
             if (!list.isEmpty()) {
                 chatListVo.setLastMessage(list.get(0).getContent());
+                chatListVo.setTime(list.get(0).getCreateTime());
             } else {
                 chatListVo.setLastMessage("");
             }

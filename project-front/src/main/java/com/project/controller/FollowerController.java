@@ -13,17 +13,22 @@ public class FollowerController {
     private FollowerService followerService;
 
     @GetMapping("getFollowerList/{id}")
-    private ResponseResult getFollowerList(@PathVariable Long id) {
+    public ResponseResult getFollowerList(@PathVariable Long id) {
         return followerService.getFollowerList(id);
     }
 
     @PostMapping("addFollower")
-    private ResponseResult addFollower(@RequestBody AddFollowerVo addFollowerVo) {
+    public ResponseResult addFollower(@RequestBody AddFollowerVo addFollowerVo) {
         return followerService.addFollower(addFollowerVo);
     }
 
     @PostMapping("delFollower")
-    private ResponseResult delFollower(@RequestBody AddFollowerVo addFollowerVo) {
+    public ResponseResult delFollower(@RequestBody AddFollowerVo addFollowerVo) {
         return followerService.delFollower(addFollowerVo);
+    }
+
+    @GetMapping("getFollower/{id}")
+    public ResponseResult getList(@PathVariable Long id) {
+        return followerService.getList(id);
     }
 }

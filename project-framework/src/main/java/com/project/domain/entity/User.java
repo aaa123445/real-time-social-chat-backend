@@ -46,6 +46,8 @@ public class User implements Serializable {
     private String sex;
     //头像
     private String avatar;
+    //个性签名
+    private String signature;
     //创建人的用户id
     private Long createBy;
     //创建时间

@@ -1,6 +1,7 @@
 package com.project.server;
 
 import com.alibaba.fastjson.JSONObject;
+import com.project.domain.Vo.MessageListVo;
 import com.project.domain.Vo.MessageVo;
 import com.project.domain.entity.Message;
 import com.project.domain.entity.User;
@@ -52,7 +53,7 @@ public class WebSocket {
         JSONObject sendData = new JSONObject();
         sendData.put("msg", userId + "连接成功");
         sendData.put("title", "服务端转发");
-        this.sendOneMessage(userId, sendData.toJSONString());
+        this.sendOneMessage(session, userId, sendData.toJSONString());
         log.info("【websocket消息】有新的连接，总数为:{},当前接入人id:@{}", webSockets.size(), userId);
     }
 
@@ -69,12 +70,30 @@ public class WebSocket {
         Message bean = BeanCopyUtils.copyBean(messageVo, Message.class);
         bean.setCreateTime(new Date());
         messageService.save(bean);
+        MessageListVo messageListVo = getMessageListVo(bean);
         JSONObject sendData = new JSONObject();
-        sendData.put("data", JSONObject.toJSONString(messageVo));
+        sendData.put("data", JSONObject.toJSONString(messageListVo));
         sendData.put("msg", "来自@" + byId.getNickName());
         sendData.put("title", "收到一条私信");
-        this.sendOneMessage(messageVo.getReceiverUserId().toString(), sendData.toJSONString());
+        Session session1 = sessionPool.get(messageVo.getReceiverUserId().toString());
+        this.sendOneMessage(session1, messageVo.getReceiverUserId().toString(), sendData.toJSONString());
         log.info("【websocket消息】收到客户端消息:" + message);
+    }
+
+    private MessageListVo getMessageListVo(Message message) {
+
+        MessageListVo messageListVo = BeanCopyUtils.copyBean(message, MessageListVo.class);
+        //发送者信息查询
+        User sendUser = userService.getById(message.getSendUserId());
+        messageListVo.setSendUserAvatar(sendUser.getAvatar());
+        messageListVo.setSendUserNickName(sendUser.getNickName());
+
+        //接收者信息查询
+        User receiverUser = userService.getById(message.getReceiverUserId());
+        messageListVo.setReceiverUserAvatar(receiverUser.getAvatar());
+        messageListVo.setReceiverUserNickName(receiverUser.getNickName());
+
+        return messageListVo;
     }
 
     // 此为广播消息
@@ -90,12 +109,13 @@ public class WebSocket {
     }
 
     // 此为单点消息
-    public void sendOneMessage(String userName, String message) {
+    public void sendOneMessage(Session session, String userName, String message) {
         log.info("【websocket消息】单点消息:" + message);
-        Session session = sessionPool.get(userName);
         if (session != null) {
             try {
-                session.getAsyncRemote().sendText(message);
+                synchronized (session) {
+                    session.getAsyncRemote().sendText(message);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
