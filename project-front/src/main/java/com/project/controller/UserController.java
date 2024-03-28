@@ -1,12 +1,10 @@
 package com.project.controller;
 
 import com.project.domain.ResponseResult;
+import com.project.domain.Vo.UserVo;
 import com.project.service.UserService;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/user")
@@ -16,7 +14,12 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("getUserInfo/{id}")
-    private ResponseResult getUserInfo(@PathVariable Long id) {
+    public ResponseResult getUserInfo(@PathVariable Long id) {
         return userService.getUserInfo(id);
+    }
+
+    @PostMapping("updateUserInfo")
+    public ResponseResult updateUserInfo(@RequestBody UserVo userVo) {
+        return userService.updateUserInfo(userVo);
     }
 }

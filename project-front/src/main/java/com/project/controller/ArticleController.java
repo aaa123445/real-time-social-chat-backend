@@ -24,7 +24,7 @@ public class ArticleController {
 
     @GetMapping("getList/{pageNum}/{pageSize}")
     public ResponseResult getArticleList(@PathVariable Long pageNum, @PathVariable Long pageSize) {
-        return articleService.getArticleList(pageNum, pageSize);
+        return articleService.getArticleList(pageNum, pageSize, 0);
     }
 
     @PostMapping("addImage")

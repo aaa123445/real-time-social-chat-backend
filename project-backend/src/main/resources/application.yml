@@ -1,0 +1,29 @@
+server:
+  port: 9999
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/real-time-social-chat?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 20010512
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      database: 0
+      host: localhost
+      port: 6379
+mybatis-plus:
+  #  configuration:
+  #    # 日志
+  #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: auto

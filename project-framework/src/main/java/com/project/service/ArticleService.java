@@ -15,7 +15,7 @@ import com.project.domain.entity.Article;
  */
 public interface ArticleService extends IService<Article> {
 
-    ResponseResult getArticleList(Long pageNum, Long pageSize);
+    ResponseResult getArticleList(Long pageNum, Long pageSize, Integer status);
 
     ResponseResult addArticle(AddArticleVo article);
 

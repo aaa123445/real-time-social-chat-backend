@@ -1,5 +1,6 @@
 package com.project.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.project.domain.ResponseResult;
 import com.project.domain.Vo.UserVo;
@@ -23,5 +24,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User byId = getById(id);
         UserVo userInfoVo = BeanCopyUtils.copyBean(byId, UserVo.class);
         return ResponseResult.okResult(userInfoVo);
+    }
+
+    @Override
+    public ResponseResult updateUserInfo(UserVo userInfoVo) {
+        update(BeanCopyUtils.copyBean(userInfoVo, User.class), new LambdaQueryWrapper<User>().eq(User::getId, userInfoVo.getId()));
+        return ResponseResult.okResult();
     }
 }

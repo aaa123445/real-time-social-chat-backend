@@ -3,8 +3,6 @@ package com.project.domain.Vo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.util.Date;
-
 @Data
 @Accessors(chain = true)
 public class UserVo {
@@ -29,6 +27,8 @@ public class UserVo {
      * 邮箱
      */
     private String email;
+
+    private String signature;
     /**
      * 手机号
      */
@@ -42,21 +42,5 @@ public class UserVo {
      */
     private String avatar;
 
-    /**
-     * 创建人的用户id
-     */
-    private Long createBy;
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-    /**
-     * 更新人
-     */
-    private Long updateBy;
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
 
 }

@@ -44,7 +44,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return 文章列表
      */
     @Override
-    public ResponseResult getArticleList(Long pageNum, Long pageSize) {
+    public ResponseResult getArticleList(Long pageNum, Long pageSize, Integer status) {
         //先查询对应页码和每页大小的文章数据
         LambdaQueryWrapper<Article> articleLambdaQueryWrapper = new LambdaQueryWrapper<>();
         articleLambdaQueryWrapper.eq(Article::getStatus, 0)

@@ -114,7 +114,10 @@ public class WebSocket {
         if (session != null) {
             try {
                 synchronized (session) {
-                    session.getAsyncRemote().sendText(message);
+                    if (session.isOpen())
+                        session.getAsyncRemote().sendText(message);
+                    else
+                        log.info("【websocket消息】连接已关闭");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
